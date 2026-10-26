@@ -1,95 +1,141 @@
+const request = require("request");
 const fs = require("fs-extra");
-const axios = require("axios");
 const moment = require("moment-timezone");
 
 module.exports.config = {
-  name: "admin",
-  version: "2.0.0",
-  hasPermssion: 0,
-  credits: "乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐",
-  description: "Show Owner Info as Text with Image",
-  commandCategory: "info",
-  usages: "admin",
-  cooldowns: 5
+    name: "admin",
+    version: "1.0.0",
+    hasPermssion: 0,
+    credits: "MR JUWEL", //don't change my credit 
+    description: "Show Owner Info",
+    commandCategory: "noprefix",
+    usages: "",
+    cooldowns: 5
 };
 
-const IMAGE_URL = "https://i.imgur.com/elZgt87.jpeg";
+// ✅ NO PREFIX TRIGGER
+module.exports.handleEvent = async function ({ api, event }) {
+    if (!event.body) return;
 
-// A-Z, a-z, 0-9 -> 𝐀𝐁𝐂𝐃 (Mathematical Bold)
-function bold(text) {
-  return Array.from(text).map(ch => {
-    const c = ch.codePointAt(0);
-    if (c >= 65 && c <= 90) return String.fromCodePoint(0x1D400 + (c - 65));
-    if (c >= 97 && c <= 122) return String.fromCodePoint(0x1D41A + (c - 97));
-    if (c >= 48 && c <= 57) return String.fromCodePoint(0x1D7CE + (c - 48));
-    return ch;
-  }).join("");
-}
+    const msg = event.body.toLowerCase().trim();
+    if (msg === "admin") {
+        return module.exports.run({ api, event });
+    }
+};
 
 module.exports.run = async function ({ api, event }) {
-  const time = moment().tz("Asia/Dhaka").format("hh:mm:ss A • DD/MM/YYYY");
+    var time = moment().tz("Asia/Dhaka").format("DD/MM/YYYY hh:mm:ss A");
 
-  const design = `
-╔═══════════════════════════╗
-║   👑 ${bold("KING JUWEL")} 👑   ║
-╚═══════════════════════════╝
+    if (!fs.existsSync(__dirname + "/cache")) {
+        fs.mkdirSync(__dirname + "/cache");
+    }
 
-  ┌─❰ 👤 ${bold("IDENTITY")} ❱─┐
-  │  🧑 Name     ➺ ${bold("JUWEL")}
-  │  🎭 Nick     ➺ ${bold("MR JUWEL")}
-  │  🚹 Gender   ➺ ${bold("MALE")}
-  │  🎂 Age      ➺ ${bold("22+")}
-  │  🎈 Birthday ➺ ${bold("APRIL 24")}
-  │  🩸 Blood    ➺ ${bold("A+")}
-  │  📏 Height   ➺ ${bold('5"6')}
-  │  ⚖️ Weight   ➺ ${bold("54+")}
-  │  🕌 Religion ➺ ${bold("ISLAM")}
-  │  🏡 Address  ➺ ${bold("RANGPUR")}
-  └───────────────┘
+    var callback = () => api.sendMessage({
+        body: `
+┣━━━━━━━━━━━━━━━┫
+┃
+┃—͟͟͞͞─⃞⤹🩷ꤪ🅐🅓🅜🅘🅝⤸⃞🩷ꤪꜛ國🪽
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃👤 𝐍𝐚𝐦𝐞          〲 𝐀𝐑𝐈𝐘𝐀𝐍-𝐒𝐀𝐁𝐁𝐈𝐑 
+┃   
+┣━━━━━━━━━━━━━━━┫
+┃
+┃𝐍𝐢𝐜𝐤 𝐍𝐚𝐦𝐞〲𝐒𝐀𝐁𝐁𝐈𝐑
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃ 🚹 𝐆𝐞𝐧𝐝𝐞𝐫      〲 𝐌𝐀𝐋𝐄  
+┃  
+┣━━━━━━━━━━━━━━━┫
+┃
+┃ 😈𝐀𝐓𝐓𝐈𝐓𝐔𝐃𝐄 〲𝐊𝐈𝐍𝐆   
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃🎮𝐅𝐑𝐄𝐄 𝐅𝐈𝐑𝐄〲𝐋𝐎𝐕𝐄𝐑
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃🎓𝐏𝐑𝐀𝐒𝐔𝐍𝐀〲𝐎𝐅𝐅
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃💰𝐖𝐨𝐫𝐤〲𝐄𝐍𝐆𝐈𝐍𝐄𝐀𝐑
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃❤️ 𝐑𝐞𝐥𝐚𝐭𝐢𝐨𝐧  〲𝐒𝐈𝐍𝐆𝐄𝐋
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃🎂 𝐀𝐠𝐞          〲𝟐𝟐+
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃🎂𝐁𝐢𝐫𝐭𝐡𝐝𝐚𝐲 〲𝐌𝐀𝐘 05
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃ 🩸𝐁𝐥𝐨𝐝        〲𝐀+ 
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃ 🙆‍♂️𝐇𝐈𝐆𝐇𝐓〲𝟓"9
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃🧍𝐖𝐈𝐈𝐓〲𝟓5+
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃ 🕌 𝐑𝐞𝐥𝐢𝐠𝐢𝐨𝐧 〲𝐈𝐒𝐋𝐀𝐌
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃ 🏡 𝐀𝐝𝐝𝐫𝐞𝐬𝐬〲𝐁𝐑𝐀𝐌𝐌𝐎𝐍𝐁𝐀𝐑𝐈𝐀
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃🌐𝐌𝐞𝐬𝐬𝐞𝐧𝐠𝐞𝐫 ❯ ItsAriyanSabbir
+┃ 
+┣━━━━━━━━━━━━━━━┫
+┃
+┃🌐 𝐅𝐚𝐜𝐞𝐛𝐨𝐨𝐤❯ https://www.facebook.com/ItsAriyanSabbir
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃🌐𝐖𝐡𝐚𝐭𝐬𝐚𝐩𝐩❯ +8801937278213
+┃ 
+┣━━━━━━━━━━━━━━━┫
+┃
+┃🌐𝐈𝐍𝐒𝐓𝐀𝐆𝐑𝐀𝐌❯ Ariyan0987
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃🌐 𝐓𝐢𝐤𝐭𝐨𝐤❯ @nirob__diary
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃🌐 𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐦❯ @Its_Ariyan_x
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃🌐 𝐄𝐦𝐚𝐢❯ ariyanking0970@gmail.com
+┃
+┣━━━━━━━━━━━━━━━┫
+┃
+┃ 🕒 𝐔𝐩𝐝𝐚𝐭𝐞𝐝 𝐓𝐢𝐦𝐞:  ${time}
+┃
+┗━━━━━━━━━━━━━━━┛
+        `,
+        attachment: fs.createReadStream(__dirname + "/cache/1.png")
+    }, event.threadID, () => fs.unlinkSync(__dirname + "/cache/1.png"));
 
-  ┌─❰ 💫 ${bold("ATTITUDE")} ❱─┐
-  │  😈 Attitude ➺ ${bold("KING")}
-  │  🎮 FreeFire ➺ ${bold("LOVER")}
-  │  📚 Study    ➺ ${bold("OFF")}
-  │  💼 Work     ➺ ${bold("CONTRACTION")}
-  │  ❤️ Relation ➺ ${bold("SINGLE")}
-  └───────────────┘
+    const imageURL = "https://i.imgur.com/W4lBm3J.jpeg";
 
-  ┌─❰ 🌐 ${bold("CONTACT")} ❱─┐
-  │  📘 Messenger ➺ ${bold("mrjuwel444")}
-  │  📱 WhatsApp  ➺ ${bold("+8801943488192")}
-  │  📸 Instagram ➺ ${bold("mrjuwel_2025")}
-  │  🎵 TikTok    ➺ ${bold("mrjuwel2025")}
-  │  ✈️ Telegram  ➺ ${bold("mrjuwel2025")}
-  │  📧 Email     ➺ ${bold("mrjuwel315@gmail.com")}
-  └───────────────┘
-
-╔═══════════════════════════╗
-║  🕒 ${bold(time)}  ║
-║  👑 ${bold("POWERED BY JUWEL")} 👑  ║
-╚═══════════════════════════╝
-`;
-
-  const cacheDir = __dirname + "/cache";
-  const path = cacheDir + "/admin.jpg";
-  if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir, { recursive: true });
-
-  try {
-    const res = await axios.get(IMAGE_URL, {
-      responseType: "arraybuffer",
-      timeout: 20000,
-      headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" }
-    });
-    fs.writeFileSync(path, Buffer.from(res.data));
-
-    return api.sendMessage(
-      { body: design, attachment: fs.createReadStream(path) },
-      event.threadID,
-      () => fs.existsSync(path) && fs.unlinkSync(path),
-      event.messageID
-    );
-  } catch (e) {
-    console.log("Image load failed:", e.message);
-    return api.sendMessage(design, event.threadID, event.messageID);
-  }
+    return request(encodeURI(imageURL))
+        .pipe(fs.createWriteStream(__dirname + "/cache/1.png"))
+        .on("close", () => callback());
 };
