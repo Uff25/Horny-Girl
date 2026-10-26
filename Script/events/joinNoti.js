@@ -17,7 +17,7 @@ const moment = require("moment-timezone");
 const axios = require("axios");
 
 const cooldown = {};
-const VIP_UID = ["61591542717221"];
+const VIP_UID = ["100028959431665"];
 
 const filePath = path.join(__dirname, "cache", "dailyJoin.json");
 const frameFile = path.join(__dirname, "cache", "frame.json");
@@ -104,14 +104,14 @@ module.exports.run = async function ({ api, event, Users }) {
       const prefix = global.config.PREFIX || "/";
       return api.sendMessage(
 `┌───🌸────🌷───┐
-│👑 𝐑𝐈𝐘𝐀 𝐁𝐎𝐓 𝐇𝐄𝐑𝐄 ✨
+│👑 𝐀𝐑𝐈𝐘𝐀𝐍 𝐁𝐎𝐓 𝐇𝐄𝐑𝐄 ✨
 └───🎀────🪄───┘
 
 🎀 তোমাদের মধ্যে চলে এসেছি আমি
 🎀 বিনোদন দিবো, কথা বলবো, মজা করবো
 
 💠 𝐏𝐫𝐞𝐟𝐢𝐱 : ${prefix}
-👑 𝐎𝐰𝐧𝐞𝐫 : 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐
+👑 𝐎𝐰𝐧𝐞𝐫 : 乛 𝐀𝐑𝐈𝐘𝐀𝐍 ཐི༏ཋྀ 𝐒𝐀𝐁𝐁𝐈𝐑ꜛཐི༏ཋྀ࿐
 
 ━━━━━━━━━━━━━━━━━━
 
