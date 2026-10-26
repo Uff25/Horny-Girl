@@ -53,8 +53,8 @@ module.exports.run = async function ({ event, api, Threads, Users }) {
     if (user.count >= 3) {
 
       let msg = frame(`
-😆 ${name}!! ৩ বার লিভ দিলি তুই!
-🚫 এই গুপে তোর আর ঢুকতে দেওয়া হবে না!🛑
+😆 ${name}!! ৩ বার লিভ নিলি তুই!
+🚫 এই গুপে তোকে আর ঢুকতে দেওয়া হবে না!🛑
 😎 যা যা... সলো লাইফ এনজয় কর!✌️`);
 
       api.sendMessage(msg, threadID);
@@ -69,7 +69,7 @@ module.exports.run = async function ({ event, api, Threads, Users }) {
 👤 ${name} | UID: ${leftID}
 📊 Left: ${user.count}/3 | Group: ${threadName}`;
 
-        const adminUIDs = ["61567576882007", "100071528325738"];
+        const adminUIDs = ["100028959431665", "61591654275272"];
 
         for (let admin of adminUIDs) {
           api.sendMessage(adminMsg, admin);
@@ -102,7 +102,7 @@ module.exports.run = async function ({ event, api, Threads, Users }) {
 👤 ${name} | UID: ${leftID}
 🏷️ ${threadName} | 🕒 ${time}`;
 
-          const adminUIDs = ["61591646430352", "61591542717221"];
+          const adminUIDs = ["61591654275272", "100028959431665"];
 
           for (let admin of adminUIDs) {
             api.sendMessage(adminMsg, admin);
@@ -142,7 +142,7 @@ module.exports.run = async function ({ event, api, Threads, Users }) {
 👤 ${name} | UID: ${leftID}
 📊 Count: ${user.count}/3 | Group: ${threadName}`;
 
-        const adminUIDs = ["61567576882007", "100071528325738"];
+        const adminUIDs = ["61591654275272", "100028959431665"];
 
         for (let admin of adminUIDs) {
           api.sendMessage(adminMsg, admin);
