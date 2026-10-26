@@ -69,7 +69,7 @@ module.exports.languages = {
 ╠══════════════════════╣
 ║ ⚙ 𝐏𝐫𝐞𝐟𝐢𝐱 ⇢ %8
 ║ 🤖 𝐁𝐨𝐭 ⇢ %9
-║ 👑 𝐎𝐰𝐧𝐞𝐫 ⇢ 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐
+║ 👑 𝐎𝐰𝐧𝐞𝐫 ⇢ 乛 𝐀𝐑𝐈𝐘𝐀𝐍 ཐི༏ཋྀ𝐒𝐀𝐁𝐁𝐈𝐑 ꜛཐི༏ཋྀ࿐
 ╚══════════════════════╝`,
  "helpList": "[ There are %1 commands. Use: \"%2help commandName\" to view more. ]",
  "user": "User",
@@ -80,7 +80,7 @@ module.exports.languages = {
 
 // 🔹 এখানে আপনার ফটো Imgur লিংক করে বসাবেন ✅
 const helpImages = [
- "https://i.imgur.com/MkTK40j.jpeg",
+ "https://i.imgur.com/W4lBm3J.jpeg",
 ];
 
 function downloadImages(callback) {
@@ -126,7 +126,7 @@ module.exports.handleEvent = function ({ api, event, getText }) {
  toBold(command.config.commandCategory || "Unknown"),
  toBold(command.config.cooldowns || 0),
  toBold(pfx || "no-prefix"),
- toBold(global.config.BOTNAME || "乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐")
+ toBold(global.config.BOTNAME || "乛 ARIYAN_CHATBOTꜛཐི༏ཋྀ࿐")
  );
 
  downloadImages(files => {
