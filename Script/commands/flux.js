@@ -1,45 +1,71 @@
-const axios = require("axios");
+const axios = require('axios');
+const fs = require('fs-extra');
+const path = require('path');
 
-module.exports.config = {
- name: "flux",
- version: "2.0",
- hasPermssion: 0,
- credits: "Dipto",
- description: "Flux Image Generator",
- commandCategory: "𝗜𝗠𝗔𝗚𝗘 𝗚𝗘𝗡𝗘𝗥𝗔𝗧𝗢𝗥",
- usage: "{pn} [prompt] --ratio 1024x1024\n{pn} [prompt]",
- countDown: 15,
-};
+module.exports = {
+    config: {
+        name: "flux",
+        version: "3.2.0",
+        author: "Siam Ahmed Saan",
+        countDown: 8,
+        role: 0,
+        shortDescription: "Generate High-Quality AI Images",
+        longDescription: "Generate stunning images using Flux.1-schnell model.",
+        category: "AI & IMAGE GENERATION",
+        guide: "{pn} [your prompt]"
+    },
 
-module.exports.run = async ({ event, args, api }) => {
- const dipto = "https://www.noobs-api.rf.gd/dipto";
+    onStart: async function ({ api, event, args }) {
+        const { threadID, messageID, senderID } = event;
+        const prompt = args.join(" ");
 
- try {
- const prompt = args.join(" ");
- const [prompt2, ratio = "1:1"] = prompt.includes("--ratio")
- ? prompt.split("--ratio").map(s => s.trim())
- : [prompt, "1:1"];
+        if (!prompt) {
+            return api.sendMessage("✨ Please enter a prompt!\n━━━━━━━━━━━━━━━━━━━━\nExample: /flux a futuristic city", threadID, messageID);
+        }
 
- const startTime = Date.now();
+        api.setMessageReaction("⏳", messageID, (err) => {}, true);
+        const startTime = Date.now();
 
- const waitMessage = await api.sendMessage("Generating image, please wait... 😘", event.threadID);
- api.setMessageReaction("⌛", event.messageID, () => {}, true);
+        const apiUrl = `https://xalman-apis.vercel.app/api/flux-schnell?prompt=${encodeURIComponent(prompt)}`;
+        const cachePath = path.join(__dirname, 'cache', `flux_${senderID}_${Date.now()}.png`);
 
- const apiurl = `${dipto}/flux?prompt=${encodeURIComponent(prompt2)}&ratio=${encodeURIComponent(ratio)}`;
- const response = await axios.get(apiurl, { responseType: "stream" });
+        try {
+            if (!fs.existsSync(path.join(__dirname, 'cache'))) {
+                fs.mkdirSync(path.join(__dirname, 'cache'), { recursive: true });
+            }
 
- const timeTaken = ((Date.now() - startTime) / 1000).toFixed(2);
+            const response = await axios({
+                method: 'get',
+                url: apiUrl,
+                responseType: 'arraybuffer',
+                timeout: 60000 
+            });
 
- api.setMessageReaction("✅", event.messageID, () => {}, true);
- api.unsendMessage(waitMessage.messageID);
+            const contentType = response.headers['content-type'];
+            if (!contentType || !contentType.includes('image')) {
+                throw new Error("Invalid Image Data");
+            }
 
- api.sendMessage({
- body: `Here's your image (Generated in ${timeTaken} seconds)`,
- attachment: response.data,
- }, event.threadID, event.messageID);
+            fs.writeFileSync(cachePath, Buffer.from(response.data, 'binary'));
 
- } catch (e) {
- console.error(e);
- api.sendMessage("Error: " + e.message, event.threadID, event.messageID);
- }
+            const endTime = Date.now();
+            const timeTaken = ((endTime - startTime) / 1000).toFixed(2);
+
+            const msgBody = `✨ 𝗙𝗟𝗨𝗫 𝗔𝗜 𝗚𝗘𝗡𝗘𝗥𝗔𝗧𝗘𝗗 ✨\n━━━━━━━━━━━━━━━━━━━━\n📝 Prompt: ${prompt}\n👤 Author: 𝗦𝗮𝗮𝗻 𝗘𝘅𝗵𝗮𝘂𝘀𝘁𝗲𝗱\n⏱️ Time Taken: ${timeTaken}s\n━━━━━━━━━━━━━━━━━━━━`;
+
+            api.setMessageReaction("✅", messageID, (err) => {}, true);
+
+            return api.sendMessage({
+                body: msgBody,
+                attachment: fs.createReadStream(cachePath)
+            }, threadID, () => {
+                if (fs.existsSync(cachePath)) fs.unlinkSync(cachePath);
+            }, messageID);
+
+        } catch (error) {
+            console.error(error);
+            api.setMessageReaction("❌", messageID, (err) => {}, true);
+            return api.sendMessage(`⚠️ Generation Failed! ${error.message}`, threadID, messageID);
+        }
+    }
 };

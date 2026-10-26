@@ -1,77 +1,76 @@
-const axios = require("axios");
+const { createCanvas, loadImage } = require('canvas');
 const fs = require("fs-extra");
 const path = require("path");
 
-module.exports.config = {
-  name: "toilet",
-  version: "1.0.0",
-  credits: "SHAHADAT SAHU",
-  description: "Generate a couple banner image using sender and target Facebook UID via Avatar Canvas API",
-  commandCategory: "banner",
-  usePrefix: true,
-  usages: "[@mention | reply]",
-  cooldowns: 5
-};
+module.exports = {
+  config: {
+    name: "toilet",
+    version: "3.3",
+    author: "Siam Ahmed Saan",
+    countDown: 5,
+    role: 0,
+    category: "FUN & SOCIAL",
+    guide: { en: "{pn} @mention / reply / UID" }
+  },
 
-module.exports.run = async function ({ api, event, Currencies }) {
-  const { threadID, messageID } = event;
+  onStart: async function ({ api, event, args }) {
+    const { threadID, messageID, senderID, type, messageReply, mentions } = event;
+    const cacheDir = path.join(__dirname, 'cache');
+    if (!fs.existsSync(cacheDir)) fs.mkdirSync(cacheDir);
 
-  try {
-    const apiList = await axios.get(
-      "https://raw.githubusercontent.com/shahadat-sahu/SAHU-API/refs/heads/main/SAHU-API.json"
-    );
+    api.setMessageReaction("⏳", messageID, () => {}, true);
 
-    const AVATAR_CANVAS_API = apiList.data.AvatarCanvas;
+    const bgUrl = "https://i.imgur.com/AZ5SByA.jpeg";
+    let targetID;
 
-    const targetID =
-      Object.keys(event.mentions || {})[0] ||
-      event.messageReply?.senderID;
-
-    if (!targetID) {
-      return api.sendMessage(
-        "Please reply or mention someone......",
-        threadID,
-        messageID
-      );
+    if (type === "message_reply") {
+      targetID = messageReply.senderID;
+    } else if (Object.keys(mentions).length > 0) {
+      targetID = Object.keys(mentions)[0];
+    } else if (args.length > 0) {
+      targetID = args[0];
+    } else {
+      targetID = senderID;
     }
 
-    const senderID = event.senderID;
+    try {
+      const [background, avatar] = await Promise.all([
+        loadImage(bgUrl),
+        loadImage(`https://graph.facebook.com/${targetID}/picture?width=1000&height=1000&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662`)
+      ]);
 
-    const randomPercent = Math.floor(Math.random() * 101);
-    const randomAmount = Math.floor(Math.random() * 100000) + 100000;
-    await Currencies.increaseMoney(senderID, parseInt(randomPercent * randomAmount));
+      const canvas = createCanvas(background.width, background.height);
+      const ctx = canvas.getContext('2d');
 
-    const res = await axios.post(
-      `${AVATAR_CANVAS_API}/api`,
-      {
-        cmd: "toilet",
-        senderID: senderID,
-        targetID: targetID
-      },
-      {
-        responseType: "arraybuffer",
-        timeout: 30000
-      }
-    );
+      ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-    const imgPath = path.join(__dirname, "cache", `toilet_${Date.now()}.png`);
-    fs.writeFileSync(imgPath, res.data);
+      const x = 185;
+      const y = 230;
+      const size = 80;
 
-    return api.sendMessage(
-      {
-        body: "বেশি বাল পাকলামির জন্য তোরে টয়লেটে ফেলে দিলাম🤣🤮",
-        attachment: fs.createReadStream(imgPath)
-      },
-      threadID,
-      () => fs.unlinkSync(imgPath),
-      messageID
-    );
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(x + size / 2, y + size / 2, size / 2, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
 
-  } catch (e) {
-    return api.sendMessage(
-      "API Error Call JUWEL",
-      threadID,
-      messageID
-    );
+      ctx.drawImage(avatar, x, y, size, size);
+      ctx.restore();
+
+      const cachePath = path.join(cacheDir, `toilet_${targetID}.png`);
+      fs.writeFileSync(cachePath, canvas.toBuffer());
+
+      return api.sendMessage({
+        body: "You deserve this place 🤧🔥",
+        attachment: fs.createReadStream(cachePath)
+      }, threadID, () => {
+        api.setMessageReaction("✅", messageID, () => {}, true);
+        fs.unlinkSync(cachePath);
+      }, messageID);
+
+    } catch (e) {
+      api.setMessageReaction("❌", messageID, () => {}, true);
+      return api.sendMessage("❌ Error processing image", threadID, messageID);
+    }
   }
 };
