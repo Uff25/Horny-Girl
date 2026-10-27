@@ -8,7 +8,7 @@ module.exports.config = {
   credits: "乛 MR ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐",
   description: "Premium all command list with modern UI",
   commandCategory: "system",
-  usages: "[No args]",
+  usages: "[help2]",
   cooldowns: 5
 };
 
