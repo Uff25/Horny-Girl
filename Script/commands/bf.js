@@ -27,7 +27,7 @@ const REF_H = 941;
 const LEFT = { x: 493, y: 322, rx: 192, ry: 182 };
 const RIGHT = { x: 1182, y: 322, rx: 188, ry: 180 };
 
-const CREDIT = "乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐";
+const CREDIT = "乛 𝐀𝐑𝐈𝐘𝐀𝐍 ཐི༏ཋྀ 𝐒𝐀𝐁𝐁𝐈𝐑ꜛཐི༏ཋྀ࿐";
 // ================================
 
 // ====== Captions ======
