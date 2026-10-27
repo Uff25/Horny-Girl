@@ -75,12 +75,12 @@ async function sendHelp(api, event) {
 ${commandList}
 
 ╭━━━━━━━━━━━━━━━━━━━━━━╮
-┃  ⚡ 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 ${toMonoBold("JUWEL")} ⚡  ┃
+┃  ⚡ 𝐏𝐨𝐰𝐞𝐫𝐞𝐝 𝐁𝐲 ${toMonoBold("ARIYAN SABBIR")} ⚡  ┃
 ╰━━━━━━━━━━━━━━━━━━━━━━╯
 `;
 
   const imgPath = __dirname + "/cache/helpallbg.jpg";
-  const bg = "https://i.imgur.com/MkTK40j.jpeg";
+  const bg = "https://i.imgur.com/W4lBm3J.jpeg";
 
   try {
     const res = await axios({
