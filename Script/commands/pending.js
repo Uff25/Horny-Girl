@@ -95,7 +95,7 @@ module.exports.handleReply = async function({ api, event, handleReply, getText }
         const groupID = handleReply.pending[index - 1].threadID;
 
         // 🔥 NOTI BOX 1 (UNCHANGED)
-        await api.sendMessage(`চ্ঁলে্ঁ এ্ঁসে্ঁছি্ঁ ⎯꯭𓆩꯭𝆺𝅥😻⃞𝐑⃞𝐈⃞𝐘⃞𝐀⃞༢࿐ এঁখঁনঁ তোঁমাঁদেঁরঁ সাঁথেঁ আঁড্ডাঁ দিঁবঁ..!😘`, groupID);
+        await api.sendMessage(`চ্ঁলে্ঁ এ্ঁসে্ঁছি্ঁ ⎯꯭𓆩꯭𝆺𝅥😻⃞আ্ঁরি্ঁয়া্ঁনে্ঁর্ঁ সু্ঁই্ঁট্ঁ বে্ঁবি্ঁ༢࿐ এঁখঁনঁ তোঁমাঁদেঁরঁ সাঁথেঁ আঁড্ডাঁ দিঁবঁ..!😘`, groupID);
 
         // 🔥 NOTI BOX 2 (UNCHANGED)
         await api.sendMessage(`╭•┄┅═══❁🌺❁═══┅┄•╮
@@ -110,11 +110,11 @@ ${global.config.PREFIX}help
 ${global.config.PREFIX}info
 ${global.config.PREFIX}admin
 
-➤ Messenger: mrjuwel999
-WhatsApp : +8801943488192
+➤ Messenger: ItsAriyanSabbir
+WhatsApp : +8801705219039
 
 ❖⋆══════════════⋆❖
-𝐎𝐰𝐧𝐞𝐫➢ 𝐌𝐑 𝐉𝐔𝐖𝐄𝐋`, groupID);
+𝐎𝐰𝐧𝐞𝐫➢ 𝐀𝐑𝐈𝐘𝐀𝐍 𝐒𝐀𝐁𝐁𝐈𝐑`, groupID);
 
         count++;
       } catch (e) {}
