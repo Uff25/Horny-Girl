@@ -156,7 +156,7 @@ module.exports.run = function ({ api, event, args, getText }) {
  toBold(command.config.commandCategory || "Unknown"),
  toBold(command.config.cooldowns || 0),
  toBold(prefix || "no-prefix"),
- toBold(global.config.BOTNAME || "乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐")
+ toBold(global.config.BOTNAME || "乛 𝐀𝐑𝐈𝐘𝐀𝐍 ཐི༏ཋྀ 𝐂𝐇𝐀𝐓𝐁𝐎𝐓ꜛཐི༏ཋྀ࿐")
  );
 
  downloadImages(files => {
@@ -197,8 +197,8 @@ module.exports.run = function ({ api, event, args, getText }) {
 ${msg}
 ╠══════════════════════╣
 ║ ⚙ 𝐏𝐫𝐞𝐟𝐢𝐱 ⇢ ${toBold(displayPrefix)}
-║ 🤖 𝐁𝐨𝐭 ⇢ ${toBold(global.config.BOTNAME || "乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐")}
-║ 👑 𝐎𝐰𝐧𝐞𝐫 ⇢ 乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐
+║ 🤖 𝐁𝐨𝐭 ⇢ ${toBold(global.config.BOTNAME || "乛 𝐀𝐑𝐈𝐘𝐀𝐍 ཐི༏ཋྀ 𝐂𝐇𝐀𝐓𝐁𝐎𝐓ꜛཐི༏ཋྀ࿐")}
+║ 👑 𝐎𝐰𝐧𝐞𝐫 ⇢ 乛 𝐀𝐑𝐈𝐘𝐀𝐍 ཐི༏ཋྀ 𝐒𝐀𝐁𝐁𝐈𝐑ꜛཐི༏ཋྀ࿐
 ╠══════════════════════╣
 ║ 💡 ${toBold("help <name>")} ⇢ 𝐃𝐞𝐭𝐚𝐢𝐥𝐬
 ║ 📄 ${toBold("help " + (page + 1))} ⇢ 𝐍𝐞𝐱𝐭 𝐏𝐚𝐠𝐞
