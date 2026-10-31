@@ -43,7 +43,7 @@ module.exports.config = {
  credits: "MR JUWEL",
  description: "auto reply to 🔞 (Only Admin)",
  commandCategory: "noprefix",
- usages: "🔞",
+ usages: "18-",
  cooldowns: 5,
  dependencies: {
  "request":"",
