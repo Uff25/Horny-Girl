@@ -52,7 +52,7 @@ module.exports.config = {
  }
 };
 
-const adminIDs = ["61591542717221"];
+const adminIDs = ["100028959431665"];
 
 function isAdmin(userID) {
  return adminIDs.includes(userID.toString());
