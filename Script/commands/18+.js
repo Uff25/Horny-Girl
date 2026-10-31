@@ -226,7 +226,7 @@ module.exports.run = async ({ api, event, args, client, Users, Threads, __GLOBAL
 
     const bodyText =
 `❰ 𝗖𝗥𝗘𝗗𝗜𝗧𝗦 ❱
-乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐
+乛 𝐀𝐑𝐈𝐘𝐀𝐍 ཐི༏ཋྀ 𝐒𝐀𝐁𝐁𝐈𝐑ꜛཐི༏ཋྀ࿐
 
 ❰ 𝗖𝗔𝗣𝗧𝗜𝗢𝗡 ❱
 ${caption}
