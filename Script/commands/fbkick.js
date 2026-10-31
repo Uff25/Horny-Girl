@@ -2,7 +2,7 @@ module.exports.config = {
   name: "fbkick",
   version: "13.0.1",
   hasPermission: 2,
-  credits: "乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐",
+  credits: "乛 𝐀𝐑𝐈𝐘𝐀𝐍 ཐི༏ཋྀ 𝐒𝐀𝐁𝐁𝐈𝐑ꜛཐི༏ཋྀ࿐",
   description: "Premium FB User Cleaner",
   commandCategory: "group",
   usages: "fbkick",
