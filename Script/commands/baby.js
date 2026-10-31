@@ -106,7 +106,7 @@ function toBoldFont(text) {
 
 function processReply(text) {
   if (!text) return "";
-  const protectedNumber = "+8801943488192";
+  const protectedNumber = "+8801705219039";
   if (text.includes(protectedNumber)) return text;
   if (/[a-zA-Z]/.test(text)) return toBoldFont(text);
   return text;
@@ -183,7 +183,7 @@ async function getUserProfilePicture(api, userID) {
 // ====== ফানি রিপ্লাই লিস্ট ======
 const funnyReplies = [
   "বেশি bot Bot করলে leave নিবো কিন্তু😒😒",
-  `শুনবো না😼 তুমি আমার বস ${BOT_CREDIT} কে প্রেম করাই দাও নাই🥺পচা তুমি🥺\n\n𝗪𝗵𝗮𝘁𝗮𝗔𝗽𝗽 +8801943488192`,
+  `শুনবো না😼 তুমি আমার বস ${BOT_CREDIT} কে প্রেম করাই দাও নাই🥺পচা তুমি🥺\n\n𝗪𝗵𝗮𝘁𝗮𝗔𝗽𝗽 +8801705219039`,
   "আমি আবাল দের সাথে কথা বলি না,ok😒",
   "এতো ডেকো না,প্রেম এ পরে যাবো তো🙈",
   `Bolo Babu, তুমি কি আমার বস ${BOT_CREDIT} কে ভালোবাসো? 🙈💋\n\n𝗪𝗵𝗮𝘁𝗮𝗔𝗽𝗽 +8801943488192`,
