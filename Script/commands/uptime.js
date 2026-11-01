@@ -48,8 +48,8 @@ module.exports = {
       const status = usedPercent < 70 ? "✅ SYSTEM STABLE" : usedPercent < 90 ? "⚠️ HIGH LOAD" : "⛔ CRITICAL";
       const finalMsg = `
 ╭───〔⚙️ SYSTEM STATUS ⚙️〕───╮
-│ 👑 𝗢𝗪𝗡𝗘𝗥:⎯꯭𓆩꯭𝆺𝅥😻⃞𝐌⃞𝆠፝֟𝐑᭄ღ倫 𝐉⃞𝐔⃞𝐖⃞𝐄⃞𝐋༢࿐ 
-│ 🤖 𝗕𝗢𝗧: ⎯꯭𓆩꯭𝆺𝅥😻⃞𝐑⃞𝐈⃞𝐘⃞𝐀⃞༢࿐
+│ 👑 𝗢𝗪𝗡𝗘𝗥:⎯꯭𓆩꯭𝆺𝅥😻⃞𝐀𝐑𝐈𝐘𝐀𝐍ღ倫 𝐒𝐀𝐁𝐁𝐈𝐑༢࿐ 
+│ 🤖 𝗕𝗢𝗧: ⎯꯭𓆩꯭𝆺𝅥😻⃞𝐀𝐑𝐈𝐘𝐀𝐍 𝐂𝐇𝐀𝐓𝐁𝐎𝐓༢࿐
 │ 🕐 𝗦𝗧𝗔𝗥𝗧 𝗧𝗜𝗠𝗘: ${startTime.toLocaleString()}
 │ ⏰ 𝗨𝗣𝗧𝗜𝗠𝗘: ${uptimeFormatted}
 ├───────────────────────
