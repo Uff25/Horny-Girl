@@ -1,51 +1,65 @@
-module.exports.config = {
+const axios = require("axios");
+const fs = require("fs");
+const path = require("path");
 
-name: "poli",
+module.exports = {
+  config: {
+    name: "poli",
+    version: "1.2",
+    author: "Siam Ahmed Saan",
+    countDown: 5,
+    role: 0,
+    shortDescription: "Generate AI image",
+    longDescription: "Generate pollination ai image ",
+    category: "AI & IMAGE GENERATION",
+  },
 
-version: "1.0.",
+  onStart: async function ({ message, args, api, event }) {
+    const prompt = args.join(" ");
 
-hasPermission: 0,
+    if (!prompt) {
+      return message.reply("❌ | Prompt dao!\nExample: poli cat");
+    }
 
-credits: "𝐈𝐬𝐥𝐚𝐦𝐢𝐜𝐤 𝐂𝐲𝐛𝐞𝐫",
+    const cacheDir = path.join(__dirname, "cache");
+    const cachePath = path.join(cacheDir, `poli_${event.senderID}_${Date.now()}.png`);
 
-description: "generate image from pollination",
+    try {
+      api.setMessageReaction("⏳", event.messageID, () => {}, true);
 
-commandCategory: "user",
+      const url = `https://xalman-apis.vercel.app/api/poli?prompt=${encodeURIComponent(prompt)}`;
+      const response = await axios.get(url, { responseType: "arraybuffer", timeout: 240000 });
 
-usages: "poli text",
+      if (!fs.existsSync(cacheDir)) {
+        fs.mkdirSync(cacheDir);
+      }
 
-cooldowns: 2,
+      fs.writeFileSync(cachePath, Buffer.from(response.data, "binary"));
 
-};
+      api.setMessageReaction("✅", event.messageID, () => {}, true);
 
-module.exports.run = async ({ api, event, args }) => {
+      await message.reply({
+        body: `✅ | Prompt: ${prompt}`,
+        attachment: fs.createReadStream(cachePath)
+      });
 
-const axios = require('axios');
+      if (fs.existsSync(cachePath)) {
+        fs.unlinkSync(cachePath);
+      }
 
-const fs = require('fs-extra');
+    } catch (err) {
+      console.error(err.message);
+      api.setMessageReaction("❌", event.messageID, () => {}, true);
 
-let { threadID, messageID } = event;
+      if (fs.existsSync(cachePath)) {
+        fs.unlinkSync(cachePath);
+      }
 
-let query = args.join(" ");
+      if (err.code === "ECONNABORTED") {
+        return message.reply("⏰ | Request timeout (4 min exceed)");
+      }
 
-if (!query) return api.sendMessage("put text/query", threadID, messageID);
-
-let path = __dirname + `/cache/poli.png`;
-
-const poli = (await axios.get(`https://image.pollinations.ai/prompt/${query}`, {
-
-responseType: "arraybuffer",
-
-})).data;
-
-fs.writeFileSync(path, Buffer.from(poli, "utf-8"));
-
-api.sendMessage({
-
-body: "Here's your image✨🌺",
-
-attachment: fs.createReadStream(path)
-
-}, threadID, () => fs.unlinkSync(path), messageID);
-
+      return message.reply("❌ | Image generate fail hoise!");
+    }
+  }
 };
