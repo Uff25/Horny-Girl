@@ -2,7 +2,7 @@ module.exports.config = {
   name: "acp",
   version: "1.1.0",
   hasPermssion: 2,
-  credits: "乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐",
+  credits: "乛 ARIYAN ཐི༏ཋྀ SABBIRꜛཐི༏ཋྀ࿐",
   description: "Accept or delete Facebook friend requests",
   commandCategory: "bot id",
   usages: "acp",
