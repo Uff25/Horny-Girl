@@ -1,80 +1,112 @@
-module.exports.config = {
-    name: "chudi",
-    version: "1.6",
+const activeSessions = new Map();
+
+module.exports = {
+  config: {
+    name: "su",
+    aliases: ["chud"],
+    version: "1.0",
+    author: "𝐒𝐈𝐘𝐀𝐌-𝐇𝐀𝐒𝐀𝐍",
     role: 2,
-    author: "Mesbah Bb'e+ xalman & 𝗦𝗮𝗮𝗻 𝗘𝘅𝗵𝗮𝘂𝘀𝘁𝗲𝗱",
-    description: "Fast tag Banglish list (1-2 seconds gap)",
-    category: "nsfw",
-    guide: "{pn} @mention ba message-e reply din",
-    coolDown: 10
-};
-
-module.exports.onStart = async function({ api, event, args }) {
-    const { threadID, messageID, mentions, type, messageReply } = event;
-
-    let targetID, name;
-
-    if (type === "message_reply") {
-        targetID = messageReply.senderID;
+    category: "admin",
+    guide: {
+      vi: "Not Available",
+      en: "chud @(mention) or su off"
     } 
-    else if (Object.keys(mentions).length > 0) {
-        targetID = Object.keys(mentions)[0];
+  },
+
+  onStart: async function ({ api, event, userData, args }) {
+    const threadID = event.threadID;
+
+    if (args[0] && args[0].toLowerCase() === "off") {
+      if (activeSessions.has(threadID)) {
+        const timeouts = activeSessions.get(threadID);
+        timeouts.forEach(clearTimeout);
+        activeSessions.delete(threadID);
+        return api.sendMessage("☑️", threadID);
+      } else {
+        return api.sendMessage("❌", threadID);
+      }
     }
 
-    if (!targetID) {
-        return api.sendMessage("Bos, jake gali diben take mention din ba tar message-e reply din! 🫂", threadID, messageID);
+    var mention = Object.keys(event.mentions)[0];
+    if(!mention) return api.sendMessage("👉 আ্ঁরি্ঁয়া্ঁন্ঁ বস যাকে চুদ্দে চাউ তার আইডি @ম্যানশন দেউ__🖕🥵", threadID);
+
+    let realName = "";
+    try {
+      if (userData && typeof userData.getName === "function") {
+        realName = await userData.getName(mention);
+      } else {
+        let userInfo = await api.getUserInfo(mention);
+        realName = userInfo[mention]?.name || "মাগি";
+      }
+    } catch (e) {
+      realName = "আবাল";
     }
 
-    const userInfo = await api.getUserInfo(targetID);
-    name = userInfo[targetID].name;
+    var tagText = "@" + realName;
+    var arraytag = [{ id: mention, tag: tagText }];
 
-    const arraytag = [{ id: targetID, tag: name }];
-    const a = (msg) => api.sendMessage(msg, threadID);
+    var a = function (text) {
+      return api.sendMessage({ body: text + " " + tagText, mentions: arraytag }, threadID);
+    };
 
-    a("Fast chuda shuru hoilo... tui thak ebar!");
+    if (activeSessions.has(threadID)) {
+      activeSessions.get(threadID).forEach(clearTimeout);
+    }
 
-    // Fast Banglish List (1-2 seconds interval)
-    setTimeout(() => { a({ body: "Vodai jane chodar moja tor make jigges kor kemon dichilam choda. " + name, mentions: arraytag }) }, 1000);
-    setTimeout(() => { a({ body: "Khankir pola tor kochi bon re chudi.. " + name, mentions: arraytag }) }, 2200);
-    setTimeout(() => { a({ body: "Madarchod tor ammu pom pom khankir po " + name, mentions: arraytag }) }, 3500);
-    setTimeout(() => { a({ body: "Tor ammur kochi vuday kamor dimu maderchod! " + name, mentions: arraytag }) }, 4800);
-    setTimeout(() => { a({ body: "Khanki magir pola kotha ko kom kom tor ammu re banamu item bomb. " + name, mentions: arraytag }) }, 6000);
-    setTimeout(() => { a({ body: "Depression thekeo tor maire chudaye di magir pola. " + name, mentions: arraytag }) }, 7200);
-    setTimeout(() => { a({ body: "Tor ammu re acharer lov dekhiye ami chudi nishirate. " + name, mentions: arraytag }) }, 8500);
-    setTimeout(() => { a({ body: "Bandir pola tor kochi boner vuda fak kor thutu diye don dukamu. " + name, mentions: arraytag }) }, 9800);
-    setTimeout(() => { a({ body: "Bandi magir pola tor ammu re chudi tor dula bhai er kande fele. " + name, mentions: arraytag }) }, 11000);
-    setTimeout(() => { a({ body: "Tor ammur kala vuday amar mal out ebar tor kochi boner pala. " + name, mentions: arraytag }) }, 12500);
-    setTimeout(() => { a({ body: "Online e gali baj hoye gechos magir pola emon chuda dimu mone rakhbi. " + name, mentions: arraytag }) }, 14000);
-    setTimeout(() => { a({ body: "Batiza shun tor ammu re chudle rag koris na tor boner jama khule de. " + name, mentions: arraytag }) }, 15500);
-    setTimeout(() => { a({ body: "Hi madarchod tor besha jater ammu ta re ador kore chudi. " + name, mentions: arraytag }) }, 17000);
-    setTimeout(() => { a({ body: "Bostir chele tor bon re musolmani dimu ami tor bap. " + name, mentions: arraytag }) }, 18500);
-    setTimeout(() => { a({ body: "Tor mukhe haigga dimu vuski magir pola chup thak. " + name, mentions: arraytag }) }, 20000);
-    setTimeout(() => { a({ body: "Tor ammur hoga diya train vora dimu magir pola. " + name, mentions: arraytag }) }, 21500);
-    setTimeout(() => { a({ body: "DNA test kora dekhbi amar chuda tei tor jonmo hoyeche. " + name, mentions: arraytag }) }, 23000);
-    setTimeout(() => { a({ body: "Kuntar baccha tor boner vuday magur mach chash korum. " + name, mentions: arraytag }) }, 24500);
-    setTimeout(() => { a({ body: "Tor mayer vuda bombay morich diya chudamu jhal lagbe khub! " + name, mentions: arraytag }) }, 26000);
-    setTimeout(() => { a({ body: "Nodi te niye chudi tor maire tui ki rag korbi? " + name, mentions: arraytag }) }, 27500);
-    setTimeout(() => { a({ body: "Tor ammur vuday petrol dhele agun dhoraya dimu khankir pola. " + name, mentions: arraytag }) }, 29000);
-    setTimeout(() => { a({ body: "Bazarer poisa churi kore tor maire hotel e pathash magir pola. " + name, mentions: arraytag }) }, 30500);
-    setTimeout(() => { a({ body: "Tor boner vuda kete kukur ke diye khawamu shayar pola. " + name, mentions: arraytag }) }, 32000);
-    setTimeout(() => { a({ body: "Chira kathi diye tor mar voday khuciye khire banamu. " + name, mentions: arraytag }) }, 33500);
-    setTimeout(() => { a({ body: "Tor mare Green Line bus er upor shuyaya chudmu nodi par korar shomoy. " + name, mentions: arraytag }) }, 35000);
-    setTimeout(() => { a({ body: "Khankir pola kire tor bap ki ekhon o bazar e naki tor mar voday? " + name, mentions: arraytag }) }, 36500);
-    setTimeout(() => { a({ body: "Tor maire launch er cabin e niye chudche amar bondhura. " + name, mentions: arraytag }) }, 38000);
-    setTimeout(() => { a({ body: "Besha magir pola kotha kom bol tor mar voday amar nam lekha. " + name, mentions: arraytag }) }, 39500);
-    setTimeout(() => { a({ body: "Tor ammu re gorur gari te tule chudmu gramer moddhe. " + name, mentions: arraytag }) }, 41000);
-    setTimeout(() => { a({ body: "Maderchod tor bon ke mela te niye chude aslam janos na? " + name, mentions: arraytag }) }, 42500);
-    setTimeout(() => { a({ body: "Tor mar buira voday ekhon o ros ache magir pola. " + name, mentions: arraytag }) }, 44000);
-    setTimeout(() => { a({ body: "Tokai magir pola tor maire chude ammer achar banamu. " + name, mentions: arraytag }) }, 45500);
-    setTimeout(() => { a({ body: "Tor boner vuday lathi diye chudmu kuttar baccha. " + name, mentions: arraytag }) }, 47000);
-    setTimeout(() => { a({ body: "Magir chele tor maire chudte chudte pichon diya mal ber korbo. " + name, mentions: arraytag }) }, 48500);
-    setTimeout(() => { a({ body: "Tor mare dhaka sohorer rasta te shuyaya chudbo shobai mile. " + name, mentions: arraytag }) }, 50000);
-    setTimeout(() => { a({ body: "Kire jaroj tor ammu re ki ekhon o vut e chude naki? " + name, mentions: arraytag }) }, 51500);
-    setTimeout(() => { a({ body: "Tor ammur kochi voday gorom tel dhele chudamu. " + name, mentions: arraytag }) }, 53000);
-    setTimeout(() => { a({ body: "Tor boner pichone boma mariye fatiye dimu magir pola. " + name, mentions: arraytag }) }, 54500);
-    setTimeout(() => { a({ body: "Tor maire chudte chudte paharer upor niye jamu. " + name, mentions: arraytag }) }, 56000);
-    setTimeout(() => { a({ body: "Gadha magir pola tor mar voday ekhon o dhon dukhle tui rag korish. " + name, mentions: arraytag }) }, 57500);
-    
-    setTimeout(() => { a("~ Shala amar jaroj shontan ja ebar bhag! Mission complete.") }, 60000);
+    const timeouts = [];
+
+    const messages = [
+     { msg: "কিরে মাদারচোত-আ্ঁরি্ঁয়া্ঁন্ঁ বস এর চুদন খাওয়ায় জন্য রেডি তো? লে চুদা খা মাঙ্গের বেটা 😂😂", time: 3000 },
+      { msg: "মাঘি চুদা শরের বাচ্চা কার লগে পঙ্গা নিতে আসছিস 🤬🤬🤬", time: 5000 },
+      { msg: " চুদে গুহা ফাঁক করে দিব খানকীর পোলা 🤤", time: 7000 },
+      { msg: " মাদারচোত বোকাচোদা খানকীর পোলা ", time: 9000 },
+      { msg: " বেসসা মাঘী চোদা কুত্তা চোদা", time: 12000 },
+      { msg: " ছাগল চুদা গরু চুদা মাঙ্গের বেটা লোকজন দেখে লাগতে আসিস কুত্তার বাচ্চা 🤬", time: 14000 },
+      { msg: " তোর আব্বুকে ভুলে গেলি মাদারচোত 😂", time: 16000 },
+      { msg: " তোকে কনডম ছাড়া চুদী মঙ্গের বেটা 🖕🏿", time: 18000 },
+      { msg: " আমার ধন চুষ তাইলে থামবো 😂", time: 20000 },
+      { msg: " তোরে কুত্তা দিয়ে চোদাই 😍", time: 22000 },
+      { msg: " মাঘীর মাং চাটিস বোকাচোদার বাচ্চা তোকে কন্ডম ছাড়া উল্টা করে চুদি 🤬", time: 24000 },
+      { msg: " এখনো সময় আছে মাফ চা 🤣🤣", time: 26000 },
+      { msg: " তোর নানি কেমন আছে 😍??", time: 28000 },
+      { msg: " তোকে চুদী 🥰", time: 30000 },
+      { msg: " মাদারচোত 🥰", time: 32000 },
+      { msg: " আজকের চুদন আজীবন মনে রাখিস বোকাচোদা 🤣🤣🤣", time: 34000 },
+      { msg: "মাঘা 🥰", time: 36000 },
+      { msg: " আয় আমার হোল টা চুষে দে 🥵🥵", time: 38000 },
+      { msg: " বাপ কে ভুলিস না বোকাচোদার বাচ্চা 🤬🤬🤬🤬🤬", time: 40000 },
+      { msg: " হোল কাটে নিবো 🤬🤬🤬🤬🤬🤬", time: 44000 },
+      { msg: " তোমার গুষ্টি চুদী ব্রো 😞🖕🏿", time: 46000 },
+      { msg: "🖕🏿🖕🏿🖕🏿🖕🏿🖕🏿🖕🏿🖕🏿🖕🏿🖕🏿", time: 48000 },
+      { msg: " মাঘীর ছেলে তোর মাকে চুদী 🖕🏽🖕🏽🖕🏽 ", time: 50000 },
+      { msg: " আজকে তোকে প্যান্ট না খুলেই চুদবো 🤬 তোর মাকে একটু আগেই চুঁদে আসলাম 😂", time: 52000 },
+      { msg: "বোকাচোদার বাচ্চা 😂", time: 56000 },
+      { msg: " মাদারচোত বোকাচোদা খানকীর ছেলে 🤬", time: 58000 },
+      { msg: " প্যান্ট ভিজে নাই 🤣🤣🤣🤣🤣🤣🤣???", time: 60000 },
+      { msg: " আরো চুদন খাইতে চাচ্ছিস ???? ", time: 62000 },
+      { msg: " আয় মাদারচোত আমার ধণ টা চুষে যা 🤬", time: 64000 },
+      { msg: " আব্বা কে ভুলিস না 🤬", time: 65000 },
+      { msg: " তোকে ডগি স্টাইল e চুদী 😋😋", time: 66000 },
+      { msg: " তোর আব্বাকে ভুললে আরেকবার এমন চুদন চুদবো মোর যাবি মঙ্গের বেটা 😂😂😂", time: 68000 },
+      { msg: " আজকের চুদন আজীবন মনে রাখবি 🤣🤣🤣", time: 70000 },
+      { msg: " আয় আমার ধোন টা চুষে যা মঙ্গের পুত 🤬🤬🤬🤬", time: 72000 },
+      { msg: " তোরে মুততে মুততে চুদী 🤣🤣", time: 74000 },
+      { msg: " চুঁদে পাউরুটি বানায় তোর হোগায় ভরে দিব মাঙ্গের বেতা চিনিস আমারে???", time: 76000 },
+      { msg: " খানকীর পোলা তোর বাপকে ভুলে গেলি?? জন্ম দেওয়া ভুল হইলো 🤬🤬🤬", time: 78000 },
+      { msg: "বোকাচোদার বাচ্চা 😍", time: 80000 },
+      { msg: " তোকে চুদী 😍😍😍", time: 82000 },
+      { msg: " হোল কাটে নিবো মঙ্গের বেটা কার লগে লাগতে আসছিস 🤬", time: 84000 },
+      { msg: "আ্ঁরি্ঁয়া্ঁন্ঁ বস এর চুদন কেমন লাগলো বাচ্চা 🤣🤣🤣🤣??", time: 86000 }
+    ];
+
+    messages.forEach((item) => {
+      const timer = setTimeout(() => {
+        a(item.msg);
+      }, item.time);
+      timeouts.push(timer);
+    });
+
+    activeSessions.set(threadID, timeouts);
+  }
 };
-               
