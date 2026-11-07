@@ -2,7 +2,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const axios = require("axios");
 
-const CREDIT = "乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐";
+const CREDIT = "乛 ARIYAN ཐི༏ཋྀ SABBIRꜛཐི༏ཋྀ࿐";
 
 module.exports.config = {
   name: "sigma",
