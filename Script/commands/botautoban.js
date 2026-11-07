@@ -521,7 +521,7 @@ module.exports.run = async ({ event, api }) => {
 📊 Total Keywords: ${botKeywords.length}
 🛡️ Protected Admins: ${adminList.length}
 
-⚡ Credit: MR JUWEL ⚡`,
+⚡ Credit: ARIYAN SABBIR ⚡`,
         event.threadID
     );
 };
