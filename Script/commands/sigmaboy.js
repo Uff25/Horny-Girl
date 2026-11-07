@@ -6,7 +6,7 @@ module.exports.config = {
   name: "sigmaboy",
   version: "13.0.0",
   hasPermssion: 0,
-  credits: "M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐",
+  credits: "ARIYAN ཐི༏ཋྀ SABBIRꜛཐི༏ཋྀ࿐",
   description: "random sigmaboy video",
   commandCategory: "sigma",
   usages: "sigmaboy | sigmaboy <number> | sigmaboy unban <id>",
