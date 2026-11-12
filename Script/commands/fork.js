@@ -23,7 +23,7 @@ module.exports = {
 
   onStart: async function ({ message }) {
     const forkLink =
-      "https://github.com/ItsAriyan-X/ARIYAN_CHAT_BOT/fork";
+      "https://github.com/mix-goat-mirai/MR-JUWEL.git";
 
     const replyText =
 `╭━━━〔 🤖 ARIYAN CHAT BOT 〕━━━╮
