@@ -16,7 +16,7 @@ module.exports.config = {
 
 // ===== সেটিংস =====
 const COOLDOWN_MS = 60 * 1000; // ১ জন ইউজার ১ মিনিটে ১ বার
-const BOSS_NOTICE = "乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐ বসকে FOKIR করা জাবে না রে পাগলা";
+const BOSS_NOTICE = "乛 আ্ঁরি্ঁয়া্ঁন্ঁ ཐི༏ཋྀ সা্ঁব্বি্ঁর্ঁꜛཐི༏ཋྀ࿐ বসকে FOKIR করা জাবে না রে পাগলা";
 const CAPTION = "নে 🐸 ফকির ভিক্ষা নে🤣🫵";
 const TEMPLATE_URL = "https://i.imgur.com/dpBuLK3.jpeg";
 
@@ -30,14 +30,16 @@ const TARGET_POS = { cx: 1115, cy: 578, r: 78 };  // ডান দিকের �
 const lastUsed = new Map(); // senderID -> শেষ ব্যবহারের সময়
 
 // বসের UID কোডের ভেতরে এনকোড করে লুকানো আছে (config.json থেকে নেওয়া হয় না)
-const _p1 = [33, 38, 34, 46, 35];
-const _p2 = [35, 39, 39, 32];
-const _p3 = [46, 34, 46, 37, 39];
+const _p1 = [38, 39, 39, 39, 37];
+const _p2 = [47, 46, 34, 46, 35];
+const _p3 = [36, 38, 33, 33, 34];
 const _k = 23;
+
 function getAdminIDs() {
   const boss = [].concat(_p1, _p2, _p3)
-    .map(function (n) { return String.fromCharCode(n ^ _k); })
+    .map(n => String.fromCharCode(n ^ _k))
     .join("");
+
   return [boss];
 }
 
