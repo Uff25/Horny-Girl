@@ -44,7 +44,7 @@ ${forkLink}
    Bot-এর ফাইলগুলো ব্যবহার করুন
 
 ⚡ ARIYAN CHAT BOT
-👑 Author: ARIYAN SABBIR
+👑 Author: MR JUWEL
 
 ╰━━━━━━━━━━━━━━━━━━━━╯`;
 
