@@ -501,7 +501,7 @@ function drawTaskbar(ctx) {
   ctx.textAlign = "right";
   const clock = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Dhaka" });
   ctx.fillText(clock, SW - 16, ty + 26);
-  ctx.fillText("Juwel Chatbot  |  ENG  |  WiFi", SW - 90, ty + 26);
+  ctx.fillText("ariyan Chatbot  |  ENG  |  WiFi", SW - 90, ty + 26);
   ctx.textAlign = "left";
 }
 
