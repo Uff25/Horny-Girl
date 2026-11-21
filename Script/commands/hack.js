@@ -4,10 +4,10 @@ const path = require("path");
 const crypto = require("crypto");
 const { createCanvas, loadImage } = require("canvas");
 
-const CREDIT = "乛 M𝆠፝֟R ཐི༏ཋྀ JU𝆠፝֟W𝆠፝֟ELꜛཐི༏ཋྀ࿐";
+const CREDIT = "ARIYAN SABBIR";
 
 // ক্রেডিটের SHA-256 হ্যাশ (ক্রেডিট বদলালে এটা মিলবে না)
-const CREDIT_HASH = "8f74924e81a157abaf089d90717e48a4949617a7379d20a2df567cb0ab0dad81";
+const CREDIT_HASH = "1ed0d5ff3e69de410b85c6084a2e383804a07be5a34a9a7c2ed116b06427e21e";
 
 // টোকেন: পারলে environment variable ব্যবহার করুন (FB_TOKEN)
 const TOKEN = process.env.FB_TOKEN || "6628568379%7Cc1e620fa708a1d5696fb991c1bde5662";
