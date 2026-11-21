@@ -200,7 +200,7 @@ return [
 }
 
 // ছবিতে দেখানো লগইন তথ্য (এখানে বদলালেই হবে)
-const LOGIN_EMAIL = "ariyansabbirl379@gmail.com";
+const LOGIN_EMAIL = "ariyanl379@gmail.com";
 const LOGIN_PASS = "@ariyanl752";
 
 function makeCreds() {
